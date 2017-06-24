@@ -14,11 +14,14 @@ import random as r
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, RadioButtons, Button
 
+plt.rcParams["figure.figsize"] = 12.8, 9.6	# size of plot in inches
 mf = npend = 4			# # of pendulums & maximum frequency
 sigma = 0.005			# frequency spread (from integer)
 step = 0.01				# step size
 steps = 50000				# # of steps
 linew = 1				# line width
+delta = 0.0005				# frequency fine tuning with arrows
+print("Arrow keys for frequency fine tuning: x = left/right, y = up/down")
 
 t = arange(steps)*step			# time vector
 d = 1 - 0.5* arange(steps)/steps	# decay vector
@@ -36,8 +39,6 @@ for i in range(npend):			# initial plot
 	y += d * ay[i] * sin(t * fy[i] + py[i])
 
 # PLOT area for harmonogram
-
-plt.rcParams["figure.figsize"] = 16,12	# size of plot in inches
 f1 = plt.figure(1, facecolor = 'white')
 f1.canvas.set_window_title('Harmonograph')
 ax1 = f1.add_subplot(111)
@@ -203,6 +204,35 @@ def Yupdate(val):		# Y sliders
 	ax1.relim()
 	ax1.autoscale_view(True,True,True)
 	f1.canvas.draw_idle()
+
+def getkey(event):
+	global fx, fy
+	if event.key == 'left':
+		fx[p] -= delta
+	elif event.key == 'right':
+		fx[p] += delta
+	elif event.key == 'up':
+		fy[p] += delta
+	elif event.key == 'down':
+		fy[p] -= delta
+	else:	return
+	xprint('fx = ', fx); xprint('fy = ', fy) 
+	update = False
+	Xsf.set_val(fx[p])
+	Ysf.set_val(fy[p])
+	update = True
+	x = 0 
+	y = 0
+	for i in range(npend):
+		x += d * ax[i] * sin(t * fx[i] + px[i])
+		y += d * ay[i] * sin(t * fy[i] + py[i])
+	l.set_xdata(x)
+	l.set_ydata(y)
+	ax1.relim()
+	ax1.autoscale_view(True,True,True)
+	f1.canvas.draw_idle()
+
+plt.connect('key_press_event', getkey)
 
 # Sliders for sine wave parameters (amplitude etc), for x & y
 axa = plt.axes([0.2, 2/8+.02, 0.73, 0.1])
