@@ -20,7 +20,7 @@ sigma = 0.005			# frequency spread (from integer)
 step = 0.01				# step size
 steps = 50000				# # of steps
 linew = 1				# line width
-delta = 0.0005				# frequency fine tuning with arrows
+delta = 0.001				# frequency fine tuning with arrows
 print("Arrow keys for frequency fine tuning: x = left/right, y = up/down")
 
 t = arange(steps)*step			# time vector
@@ -56,7 +56,7 @@ plt.axis('off')
 plt.subplots_adjust(left=0.0, right=1.0, top=1.0, bottom=0.0)
 
 def xprint(name, value):	# convenience function to print params.
-	print(name+' '.join(['%.4f' % x for x in value]))
+	print(name+' '.join(['%.3f' % x for x in value]))
 
 # Radio buttons for pendulum selector
 pend = plt.axes([0.0, 0.0, 0.1, 0.8])
@@ -153,7 +153,7 @@ def Supdate(val):		# Steps slider callback
 
 # Slider for line length (steps)
 stps = plt.axes([0.2, 0.02, 0.73, 0.1])
-Stps = Slider(stps, 'Steps (all)', 0.0, 200000, valinit=steps)
+Stps = Slider(stps, 'Steps (all)', 0.0, 200000, valinit=steps, valfmt="%d")
 Stps.on_changed(Supdate)
 
 # Decay controller
@@ -238,16 +238,16 @@ plt.connect('key_press_event', getkey)
 axa = plt.axes([0.2, 2/8+.02, 0.73, 0.1])
 axf = plt.axes([0.2, 3/8+.02, 0.73, 0.1])
 axp = plt.axes([0.2, 4/8+.02, 0.73, 0.1])
-Xsa = Slider(axa, 'X Amplitude', 0.0, 1.0, valinit=ax[p])
-Xsf = Slider(axf, 'X Frequency', 0.0, mf, valinit=fx[p])
-Xsp = Slider(axp, 'X Phase    ', 0.0, 2*pi, valinit=px[p])
+Xsa = Slider(axa, 'X Amplitude', 0.0, 1.0, valinit=ax[p], valfmt='%1.3f')
+Xsf = Slider(axf, 'X Frequency', 0.0, mf, valinit=fx[p], valfmt='%1.3f')
+Xsp = Slider(axp, 'X Phase    ', 0.0, 2*pi, valinit=px[p], valfmt='%1.3f')
 
 aya = plt.axes([0.2, 5/8+.02, 0.73, 0.1])
 ayf = plt.axes([0.2, 6/8+.02, 0.73, 0.1])
 ayp = plt.axes([0.2, 7/8+.02, 0.73, 0.1])
-Ysa = Slider(aya, 'Y Amplitude', 0.0, 1.0, valinit=ay[p])
-Ysf = Slider(ayf, 'Y Frequency', 0.0, mf, valinit=fy[p])
-Ysp = Slider(ayp, 'Y Phase    ', 0.0, 2*pi, valinit=py[p])
+Ysa = Slider(aya, 'Y Amplitude', 0.0, 1.0, valinit=ay[p], valfmt='%1.3f')
+Ysf = Slider(ayf, 'Y Frequency', 0.0, mf, valinit=fy[p], valfmt='%1.3f')
+Ysp = Slider(ayp, 'Y Phase    ', 0.0, 2*pi, valinit=py[p], valfmt='%1.3f')
 
 Xsf.on_changed(Xupdate)
 Xsa.on_changed(Xupdate)
