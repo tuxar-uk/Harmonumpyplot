@@ -1,6 +1,6 @@
 # Harmonograph simulators using numpy and matplotlib
 
-There are 2 programs here. The first is a simple bare-bones program that gets a couple of parameters from the user and draws a random harmonograph. The second is a full-fledged GUI with buttons and sliders to allow the creation of user-specified harmonographs, or random ones that can be used as a starting point for user adjustments.
+There are 2 programs here. The first is a simple bare-bones program that gets a couple of parameters from the user and draws a random harmonograph. The second is a full-fledged GUI with buttons and sliders to allow the creation of user-specified harmonographs, or random ones that can be used as a starting point for user adjustments. They are both Python 3 - do NOT use Python 2.
 
 ![harmonograph](Harmonographs/harmonograph.jpeg)
 
